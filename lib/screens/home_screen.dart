@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/counter_buttons.dart';
+import 'screen.dart';
 
 // MyHomePage è la schermata principale dell'app.
 // Estende StatefulWidget perché il suo contenuto cambia in risposta alle interazioni.
@@ -60,6 +61,14 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               '$_counter', // interpolazione: mostra il valore corrente del contatore
               style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Screen()),
+              ),
+              child: const Text('Vai alla seconda schermata'),
             ),
           ],
         ),
