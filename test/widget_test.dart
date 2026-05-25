@@ -1,30 +1,27 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:flutter_tech/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
+  testWidgets('Pagina 1 mostra il pulsante per Pagina 2', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.text('Pagina 1'), findsOneWidget);
+    expect(find.text('Vai a Pagina 2'), findsOneWidget);
+  });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+  testWidgets('Navigazione da Pagina 1 a Pagina 2 e ritorno', (WidgetTester tester) async {
+    await tester.pumpWidget(const MyApp());
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    await tester.tap(find.text('Vai a Pagina 2'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Pagina 2'), findsOneWidget);
+    expect(find.text('Vai a Pagina 1'), findsOneWidget);
+
+    await tester.tap(find.text('Vai a Pagina 1'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Pagina 1'), findsOneWidget);
   });
 }
